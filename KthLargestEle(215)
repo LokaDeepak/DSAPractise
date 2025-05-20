@@ -1,0 +1,27 @@
+// By sorting the given array
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length-k];
+    }
+}
+//Here the given array has been sorted and fetched the array length and it is deducted by the value of k and we will find our answer.
+//Eg: If sorted array is: nums[] = {1,2,3,4,5,6} Then total length of array will be 6 and if k is 2 then 6-2=4. The 5 is present in the 4th index of the array i will be returned as the answer.
+
+// By not sorting the array
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        Queue <Integer> q = new PriorityQueue<>();
+        for(int num:nums){
+            q.offer(num);
+            if(q.size()>k){
+                q.poll();
+            }
+        }
+        return q.peek();
+    }
+}
+//Hrere we has not sorted the given array. Instaed we taken the priority queue of size k in maximum length of queue.
+// In priority queue the larger elements move to the downwards of the queue. 
+// Here, ome sigle array elements will be fetched and inserted to the queue using offer method. If the elements are greater than k ten the topmost element will be popped.
+// Finally the topmost element will be retrieved as the answer using peek method.
