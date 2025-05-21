@@ -1,0 +1,18 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        char[] a = s.toCharArray();
+        char[] b = t.toCharArray();
+        Arrays.sort(a);
+        Arrays.sort(b);
+
+        return Arrays.equals(a,b);            
+    }
+}
+
+//Leetcode: 242... Here there are two strings named s and t. We need to find that whether the two strings are anagram. If its anagram then we want to return true else return false.
+// Anagram means if the letters are jumbled from the given word it must form other word it must be same length of string and the letter frequency must be same.
+// In order to do that task, we will convert the given string to a character array and sort it alphabetically and check whether the two arrays are equal or not. If its equal then we return true else return false.
+// We can give another condition that if the length of both strings will not match then it can be terminated directly.
