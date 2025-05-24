@@ -1,0 +1,65 @@
+// Solution1: In this solution we just use nested for loop and multiply all elments present in nums array except when i=j and return it to ans[i] (Brute force approach)
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int res = 1;
+        int[] ans = new int[n];
+        for(int i=0; i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i!=j){
+                    res *= nums[j];
+                }
+            }
+            ans[i] = res;
+            res=1;
+        }
+        return ans;
+    }
+}
+
+//Solution2: This is optimised than 1st solution. Here we calculate the product of left and right side elements of i in array and mulitply them and return it respectively. 
+//We use three arrays to store the product of right, left side elements and to store the respective product of each of the elements and finally return the answer array.
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int i;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        int[] ans = new int[n];
+        //to store the left side product
+        left[0] = 1;
+        for(i=1;i<n;i++){
+            left[i] = left[i-1]*nums[i-1];
+        }
+        //to store product of right side in nums[]
+        right[n-1] = 1;
+        for(i=n-2 ; i>=0 ; i--){
+            right[i] = right[i+1]*nums[i+1];
+        }
+        for(i=0 ; i<n ; i++){
+            ans[i] = left[i]*right[i];
+        }
+        return ans;
+    }
+}
+
+//Solution3: This is most optimised solution. Here, instead of creating arrays to store the product of right and left elements we calculate it at the time of storing it to answer array and return the answer array
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int i;
+        int[] ans = new int[n];
+        ans[0] = 1;
+        //to store the left side product
+        for(i=1;i<n;i++){
+            ans[i] = ans[i-1] * nums[i-1];
+        }
+        //to store product of right side in nums[]
+        int right = 1;
+        for(i=n-2 ; i>=0 ; i--){
+            right = right*nums[i+1];
+            ans[i]*=right;
+        }
+        return ans;
+    }
+}
