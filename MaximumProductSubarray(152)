@@ -1,0 +1,36 @@
+// Maximum product subarray (Leetcode-152)... We need to find the subarray which the multuplied answer will be maximum than other subarrays
+//Solution1: [Brute force approach]: Here, The first lop is to start from the first element and the nested loop is to start from the ith position to end of array to calculate the product and return the maximum of product and 
+class Solution {
+    public int maxProduct(int[] nums) {
+        int maxi = Integer.MIN_VALUE;
+        for(int i=0;i<nums.length;i++){
+            int prod = 1;
+            for(int j=i;j<nums.length;j++){
+                prod=prod*nums[j];
+                maxi = Math.max(maxi,prod);
+            }
+        }
+        return maxi;
+    }
+}
+
+//Solution2 :[Optimal approach]: Here, we use single loop, at a time we multiply both subarrays from start(pre) and end(suff) and compare them and assign the greatest one to the ans variable.
+//If pre or suff has 0 them the value reset to 1 and so on.
+class Solution {
+    public int maxProduct(int[] nums) {
+        int pre = 1, suff =1;
+        int n = nums.length;
+        int ans = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            if(pre==0)
+                pre=1;
+            if(suff==0)
+                suff=1;
+
+            pre*=nums[i];
+            suff*=nums[n-i-1];
+            ans = Math.max(ans, Math.max(pre,suff));
+        }
+        return ans;
+    }
+}
