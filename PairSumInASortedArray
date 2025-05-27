@@ -47,7 +47,7 @@ class New{
 class Main {
     public static void main(String[] args) {
         int arr[] = {9, 10, 10, 11, 15, 26, 38};
-        int target = ;
+        int target = 35 ;
         New n = new New();
         //n.pairSum(arr,target);
         if (n.pairSum(arr,target))
