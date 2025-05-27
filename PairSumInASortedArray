@@ -1,0 +1,60 @@
+// GFG problem [Pair sum in a sorted and rotated array]. Here we need to find whetehr the two numbers in a given array form a target value
+// Solution1: (Brute force approach)
+class New{
+    public boolean pairSum(int[] arr, int target){
+        for(int i=0 ; i<arr.length ; i++){
+            int com = target-arr[i];
+            for(int j=0;j<arr.length;j++){
+                if(arr[j]==com)
+                return true;
+            }
+        }
+        return false;
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        int arr[] = {9, 10, 10, 11, 15, 26, 38};
+        int target = 35;
+        New n = new New();
+        //n.pairSum(arr,target);
+        if (n.pairSum(arr,target))
+            System.out.println("true");
+        else
+            System.out.println("false");
+    }
+}
+// In this approach, one loop is used to traverse from start to end of array. We take the element and deducts it with target and a new value will be obtained. We use another loop to check whether the new value is exists in the array or not. If it exists it return true.
+
+//Solution2 : (Optimal approach)
+import java.util.*;
+
+class New{
+    public boolean pairSum(int[] arr, int target){
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0 ; i<arr.length ; i++){
+            int com = target-arr[i];
+            
+            if(set.contains(com)){
+                return true;
+            }
+            
+            set.add(arr[i]);
+        }
+        return false;
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        int arr[] = {9, 10, 10, 11, 15, 26, 38};
+        int target = ;
+        New n = new New();
+        //n.pairSum(arr,target);
+        if (n.pairSum(arr,target))
+            System.out.println("true");
+        else
+            System.out.println("false");
+    }
+}
+// In this approach, we use hashset concept. Here we use one loop to traverse from start to end. we take a element and deduct it with target and stores it in new variable 'com'. The current iteration's value will be added to the hashset.
+// Then we check whether the com value is exists in hashset or not if its exists then return true. 
