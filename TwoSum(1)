@@ -1,0 +1,31 @@
+// Leetcode:1.. Two sum. Here we need to find the two elements from the given array that can form the target value
+//Solution1: Brute force approach. Here we use two loops, onw for traversin from beginning to end and another one for finding whether the pair value that can be formed a target value with nums[i] is present or not. And return the index of the value
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for(int i=0;i<nums.length ; i++){
+            for(int j=i+1;j<nums.length;j++){
+                //int com = target-nums[i];
+                if(nums[j]==target-nums[i]){
+                    return new int[] {i,j};
+                }
+            }
+        }
+        return new int[] {};
+    }
+}
+
+// Solution2: Optimal approach. Here we use only one loop. We use hashmap concept to check whether the pair element is present or not if its present then we retrive the index of the value
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> hm = new HashMap<>();
+        for(int i=0 ; i< nums.length ; i++){
+            int com = target-nums[i];
+
+            if(hm.containsKey(com)){
+                return new int[] {hm.get(com),i};
+            }
+            hm.put(nums[i],i);
+        }
+        return new int[] {};
+    }
+}
