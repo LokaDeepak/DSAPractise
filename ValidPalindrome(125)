@@ -1,0 +1,24 @@
+// Leetcode-125... Valid palindrome. In this problem we check whether the given string is palindrome or not, we ignore the special characters and consider only alpha numweric characters.
+class Solution {
+    public boolean isPalindrome(String str) {
+        char s[] = str.toCharArray();
+        int st = 0, end = s.length-1;
+        while(st<end){
+            if(!Character.isLetterOrDigit(s[st])){
+            st++;
+            continue;
+            }
+            if(!Character.isLetterOrDigit(s[end])){
+            end--;
+            continue;
+            }
+            if(Character.toLowerCase(s[st])!=Character.toLowerCase(s[end])){
+                return false;
+            }
+            st++;
+            end--;
+        }
+        return true;
+    }
+}
+Here, we use two pointer approach, check if start and end pointer elements are same, if its same increase start and decrease end, if elements are not same return false and end of program.
