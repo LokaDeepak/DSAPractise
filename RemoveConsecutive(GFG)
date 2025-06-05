@@ -1,0 +1,18 @@
+// This problem is used to identify and print the consecutive characters present in the string
+class Solution {
+    public void removeConsecutiveCharacter(String s) {
+        char[] str = s.toCharArray();
+        for(int i=1 ; i<str.length ; i++){
+            if(str[i]==str[i-1]){
+                System.out.println(str[i]);
+            }
+        }
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s = "ccddeeffgga";
+        sol.removeConsecutiveCharacter(s);
+    }
+}
