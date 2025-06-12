@@ -1,0 +1,14 @@
+class Solution {
+    public String largestOddNumber(String num) {
+        for(int i=num.length()-1;i>=0;i--){
+            if((num.charAt(i)-'0')%2!=0){
+                return num.substring(0,i+1);
+            }
+        }
+        return "";
+    }
+}
+
+// Leetcode 1903- Here, the string will be given with some numbers, you need to retrive the substring that will be the largest odd number in that string.
+// We ignore the 0 at the start of string, basically we start looping from end of string and convert each string to int and check whether the number is odd, if it is odd the return from 0th index to ith index
+// if every element is even the we return empty string.
