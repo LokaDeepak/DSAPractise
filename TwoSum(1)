@@ -15,17 +15,16 @@ class Solution {
 }
 
 // Solution2: Optimal approach. Here we use only one loop. We use hashmap concept to check whether the pair element is present or not if its present then we retrive the index of the value
+import java.util.*;
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> hm = new HashMap<>();
-        for(int i=0 ; i< nums.length ; i++){
-            int com = target-nums[i];
-
-            if(hm.containsKey(com)){
-                return new int[] {hm.get(com),i};
+        HashMap<Integer , Integer> map = new HashMap<>();
+        for(int i=0 ; i<nums.length ; i++){
+            int need = target-nums[i];
+            if(map.containsKey(need)){
+                return new int[]{map.get(need),i};
             }
-            hm.put(nums[i],i);
         }
-        return new int[] {};
+        return new int[]{};
     }
 }
