@@ -1,0 +1,33 @@
+// Leetcode-206... Reverse a linked list... Iteratively
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode nextPtr = null;
+        while(curr!=null){
+            nextPtr = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextPtr;
+        }
+        return prev;
+        //head = prev;
+    }
+}
+
+// Reverse LL (recursively)
+class Solution {
+    public void reverseList(ListNode curr, ListNode prev) {
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode nextPtr = null;
+        if(curr.next==null){
+            head = curr;
+            curr.next = prev;
+            return;
+        }
+        nextPtr = curr.next;
+        curr.next = prev;
+        reverseList(nextPtr, curr);
+    }
+}
