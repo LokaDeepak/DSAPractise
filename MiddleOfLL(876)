@@ -1,4 +1,5 @@
 // Leetcode-876... Middle of the linked list
+// Solution 1
 class Solution {
     public ListNode middleNode(ListNode head) {
         if(head==null || head.next==null){
@@ -16,6 +17,18 @@ class Solution {
         else{
             return slow;
         }
+    }
+}
+
+//Solution 2
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
     }
 }
 // Here we use two pointer approach to solve this probem, basically this is to return the middle element in the linked list
