@@ -1,0 +1,39 @@
+//Leetcode-19... Remove nth node from the end of the linked list
+//Brute force approach
+1. Traverse to the end of linked lsit
+2. Fetch the value of n
+3. Move back n-1 steps
+Connect n-1th node to n+1th node
+
+//Better approach
+1. Conevrt the linked list to an array
+2. Remove the element
+3. Convert back to linked list
+
+//Optimal approach
+1. Make the node dummy, place at head of LL
+2. Make other two nodes slow and fast, place them at dummy
+3. Move fast pointer to the n+1th node (using for loop)
+4. Then move slow and fast pointers by 1 node per iteration until fast becomes null
+5. Now, connect slow to next's next node and that will be our solution
+
+//Optimal code
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+         ListNode dummy = new ListNode(0);
+         dummy.next = head;
+         ListNode fast = dummy, slow = dummy;
+         //if(dummy.next==null){
+           // return null;
+         //}
+         for(int i=0 ; i<=n ; i++){
+            fast = fast.next;
+         }
+         while(fast!=null){
+            slow = slow.next;
+            fast = fast.next;
+         }
+         slow.next = slow.next.next;
+         return dummy.next;
+    }
+}
