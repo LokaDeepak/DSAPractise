@@ -1,0 +1,44 @@
+// Leetcode-2... Add two numbers...
+Here,
+1. We need to create a dummy node to reduce complexity
+2. declare the nodes temp1, temp2, curr at dummy node.
+3. Declare the carry variable
+4. Traverse both temp vaules until both become null
+5. Add their respective list node data if they are not null and assign to sum variable
+6. Make new node and store the reminder of 10 and carry will be quotient of 10
+7. Update both temp nodes to next nodes
+8. Handle the carry value
+9. Return the head node
+
+// Code
+class Solution {
+    public ListNode addTwoNumbers(ListNode head1, ListNode head2) {
+        ListNode temp1 = head1;
+        ListNode temp2 = head2;
+        ListNode dummy = new ListNode(-1);
+        int carry = 0;
+        ListNode curr = dummy;
+        int sum = carry;
+        while(temp1 != null || temp2!=null){
+            sum = carry;
+            if(temp1!=null){
+                sum = sum + temp1.val;
+            }
+            if(temp2!=null){
+                sum = sum + temp2.val;
+            }
+            ListNode newNode = new ListNode(sum%10);
+            carry = sum/10;
+            curr.next = newNode;
+            curr = curr.next;
+
+            if(temp1!=null) temp1 = temp1.next;
+            if(temp2!=null) temp2 = temp2.next;
+        }
+        if(carry != 0){
+            //newNode = newNode(carry);
+            curr.next = new ListNode(carry);
+        }
+        return dummy.next;
+    }
+}
