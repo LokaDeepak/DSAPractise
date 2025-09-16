@@ -1,0 +1,28 @@
+// Leetcode 234... Palindrome linked list
+Brute force approach
+1. Create a Stack data structure
+2. Create a node temp and place it at the head of LL
+3. Push the data element of temp to the stack and update temp until it reaches null
+4. Assign head to the temp node
+5. Check if temp.data is equal to stack's topmost element
+6. Return false if it is not equal, update temp and move to next element in stack until stack is empty
+7. Finally return true if all elements are equal
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        Stack<Integer> stk = new Stack<>();
+        ListNode temp=head;
+        while(temp!=null){
+            stk.push(temp.val);
+            temp = temp.next;
+        }
+        temp=head;
+        while(temp!=null){
+            if(temp.val!=stk.peek()){
+                return false;
+            }
+            temp = temp.next;
+            stk.pop();
+        }
+        return true;
+    }
+} 
