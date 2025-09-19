@@ -26,3 +26,42 @@ class Solution {
         return true;
     }
 } 
+
+// Optimal solution
+1. Find the middle of the linked list
+2. Reverse the second half
+3. Compare first half's first value and second half's first value, do this till second not equal null
+4. If there is no not equal values then returns true
+class Solution {
+    public ListNode reverse(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newHead = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
+    }
+    public boolean isPalindrome(ListNode head) {
+        ListNode slow = head, fast = head;
+        boolean palindrome = true;
+        while(fast.next!=null && fast.next.next!=null){
+              slow = slow.next;
+              fast = fast.next.next;
+        }
+        ListNode newHead = reverse(slow.next);
+        ListNode first = head;
+        ListNode second = newHead;
+        while(second!=null){
+            if(first.val != second.val){
+                reverse(newHead);
+                return false;
+            }
+            first = first.next;
+            second = second.next;
+
+        }
+        reverse(newHead);
+        return true;
+    }
+}
