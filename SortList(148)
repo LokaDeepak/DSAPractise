@@ -1,0 +1,74 @@
+// Leetcode-148... Sort List, Here we need to sort the given linked list
+// Brute force approach
+1. Create a array list and a temp node starts from head
+2. Move untill temp not equal to null and at each node you need to add that element to array
+3. Sort the arraylist
+4. Assign temp to head and fetch the array[i] value and add it to ListNode
+5. Return the head of the linked list
+class Solution {
+    public ListNode sortList(ListNode head) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        ListNode temp = head;
+        while(temp!=null){
+            arr.add(temp.val);
+            temp = temp.next;
+        }
+        Collections.sort(arr);
+        int i=0;
+        temp = head;
+        while(temp != null){
+            temp.val = arr.get(i);
+            i++;
+            temp = temp.next;
+        }
+        return head;
+    }
+}
+
+//Optimal approach
+1. We find the middle of the linked list at the beginning
+2. Make the hypothetical list and merge then in sorted order (Both two lists)
+3. Start traversal from both list's beginning and go until null
+4. At each recurion we merger the both lists sallest elements into one single list
+5. Return the head of the final merged list
+class Solution {
+    public ListNode findMiddle(ListNode head){
+        ListNode slow = head, fast = head.next;
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    
+    public ListNode sortList(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode middle = findMiddle(head);
+        ListNode leftHead = head;
+        ListNode rightHead = middle.next;
+        middle.next = null;
+        leftHead = sortList(leftHead);
+        rightHead = sortList(rightHead);
+        return merge(leftHead, rightHead);
+    }
+
+    public ListNode merge(ListNode l1, ListNode l2){
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        while(l1 != null && l2 != null){
+            if(l1.val < l2.val){
+                curr.next = l1;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                l2 = l2.next;
+            }
+            curr = curr.next;
+        }
+        if(l1 != null) curr.next = l1;
+        if(l2 != null) curr.next = l2;
+        return dummy.next;
+    }
+}
