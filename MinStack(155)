@@ -1,0 +1,47 @@
+// Leetcode-155... Min Stack
+Here we need to make a functions to perform stack operations like push, pop, peek, getMin 
+
+Brute force approach:
+1. Create a stack that holds 2 integers in each object.
+2. Here the 1st value is the actual value of the stack object and 2nd value is the minimum value till now
+3. Minimum must be compared at each push operation and updated if there is any changes
+
+Optimal Approach:
+1. Here we declare a varible for storing minimum value, it will be updated if the push operation is occured or if the minimum value is pop ed from the stack
+class MinStack {
+    Stack <Long> stk = new Stack<>();
+    long min = Long.MAX_VALUE;
+    //int n;
+
+    public void push(long val) {
+        if (stk.isEmpty()) {
+            min = val;
+            stk.push(val);  
+        } else if(val>=min){ stk.push(val); }
+        else{
+            stk.push(2*val-min);
+            min = val;
+        }
+    }
+
+    public void pop() {
+        if(stk.isEmpty()){
+        return;
+        }
+        long top=stk.pop();
+        if(top<min) min = 2*min-top;
+    }
+
+    public int top() {
+        if(stk.isEmpty()) return -1;
+        //int top = stk.peek();
+        long top = stk.peek();
+        if(top>=min) return (int)top;
+        else return (int)min;//  stk.peek().val;
+    }
+
+    public int getMin() {
+        if(stk.isEmpty()) return -1;
+        return (int)min;
+    }
+}
