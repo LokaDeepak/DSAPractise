@@ -1,0 +1,44 @@
+Leetcode-739... Daily temperatures
+Brute force approach:
+1. Start the loop from 0th index
+2. Start the another loop (nested) from i+1th to end
+3. Check if the nested loop's element is greater than ith value, if it is, add j-i to the ans array, if not add 0 to the lsit
+class Solution {
+    public int[] dailyTemperatures(int[] temp) {
+        int n = temp.length;
+        int[] ans = new int[n];
+
+        for(int i=0 ; i<n ; i++) {
+            for(int j=i+1; j<n ; j++) {
+                if (temp[j] > temp[i]) {
+                    ans[i] = j-i;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+}
+
+Optimal approach:
+1. Declare a stack
+2. Loop from 0th index of temp to end
+3. Go until stack is not empty and i is greater than peek
+4. Set the ans index
+5. Push the new element to stack
+class Solution {
+    public int[] dailyTemperatures(int[] temp) {
+        int n = temp.length;
+        int[] ans = new int[n];
+        Stack<Integer> stack = new Stack<>(); // store indices
+
+        for(int i=0; i<n; i++) {
+            while(!stack.isEmpty() && temp[i]>temp[stack.peek()]) {
+                int idx = stack.pop();
+                ans[idx] = i-idx;
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+}
