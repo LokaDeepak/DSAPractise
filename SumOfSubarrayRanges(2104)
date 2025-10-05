@@ -1,5 +1,9 @@
-//
+//Leetcode-2104.. sum of subarray ranges...
+Here we need to calculate the sum of subarraybetween some ranges
 Brute force:
+1. We will generate all subarrays ans their sum
+2. Find largest and smallest in subarrays
+3. return the sum
 class Solution {
     public long subArrayRanges(int[] nums) {
         int sum = 0;
@@ -12,5 +16,105 @@ class Solution {
             }
         }
         return sum;
+    }
+}
+
+Optimal:
+class Solution {
+    public long subArrayRanges(int[] arr) {
+        return sumMax(arr) - sumMin(arr);
+    }
+    
+    public long sumMax(int[] arr) {
+        int[] nge = findNge(arr);
+        int[] pge = findPge(arr);
+
+        int n = arr.length;
+        long total = 0;
+        //int mod = (int)1e9 + 7;
+
+        for (int i = 0; i < n; i++) {
+            long left = i - pge[i];
+            long right = nge[i] - i;
+            total = (total + (long)arr[i] * left * right);
+        }
+
+        return total;
+    }
+
+    public int[] findNge(int arr[]) {
+        int n = arr.length;
+        int[] nge = new int[n];
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && arr[st.peek()] < arr[i]) {
+                st.pop();
+            }
+            nge[i] = st.isEmpty() ? n : st.peek();
+            st.push(i);
+        }
+        return nge;
+    }
+
+    public int[] findPge(int arr[]) {
+        int n = arr.length;
+        int[] pge = new int[n];
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && arr[st.peek()] <= arr[i]) {
+                st.pop();
+            }
+            pge[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(i);
+        }
+        return pge;
+    }
+
+    public long sumMin(int[] arr) {
+        int[] nse = findNse(arr);
+        int[] pse = findPse(arr);
+
+        int n = arr.length;
+        long total = 0;
+        //int mod = (int)1e9 + 7;
+
+        for (int i = 0; i < n; i++) {
+            long left = i - pse[i];
+            long right = nse[i] - i;
+            total = (total + (long)arr[i] * left * right);
+        }
+        return total;
+    }    
+
+    public int[] findNse(int arr[]) {
+        int n = arr.length;
+        int[] nse = new int[n];
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && arr[st.peek()] > arr[i]) {
+                st.pop();
+            }
+            nse[i] = st.isEmpty() ? n : st.peek();
+            st.push(i);
+        }
+        return nse;
+    }
+
+    public int[] findPse(int arr[]) {
+        int n = arr.length;
+        int[] pse = new int[n];
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && arr[st.peek()] >= arr[i]) {
+                st.pop();
+            }
+            pse[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(i);
+        }
+        return pse;
     }
 }
