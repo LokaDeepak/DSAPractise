@@ -1,0 +1,38 @@
+//
+Brute force:
+class StockSpanner {
+    ArrayList<Integer> arr ; 
+    public StockSpanner() {
+        arr = new ArrayList<>();
+    }
+    
+    public int next(int val) {
+        arr.add(val);
+        int curr = 1;
+        for(int i=arr.size()-2 ; i>=0 ; i--){
+            if(arr.get(i)<=val) curr++;
+            else break;
+        }
+        return curr;
+    }
+}
+
+Optimmal:
+class StockSpanner {
+    Stack<int[]> stk ; 
+    int idx = -1;
+    public StockSpanner() {
+        stk = new Stack<>();
+        stk.clear();
+    }
+    
+    public int next(int val) {
+        idx = idx+1;
+        while(!stk.isEmpty() && stk.peek()[0]<=val){
+            stk.pop();
+        }
+        int ans = idx - (stk.isEmpty() ? -1 : stk.peek()[1]);
+        stk.push(new int[]{val,idx});
+        return ans;
+    }
+}
