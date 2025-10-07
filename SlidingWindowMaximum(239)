@@ -1,0 +1,34 @@
+// Leetcode 239... Sliding Window Maximumm
+Brute force approach:
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        ArrayList<Integer> lst = new ArrayList<>();
+        int n = nums.length;
+        for(int i=0 ; i<=n-k ; i++){
+            int maxi = nums[i];
+            for(int j=i ; j<=i+k-1 ; j++){
+                maxi = Math.max(maxi, nums[j]);
+            }
+            lst.add(maxi);
+        }
+        int[] arr = lst.stream().mapToInt(i -> i).toArray();
+        return arr;
+    }
+}
+
+Optimal approach:
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        ArrayList<Integer> lst = new ArrayList<>();
+        Deque<Integer> dq = new ArrayDeque<>();
+        int n = nums.length;
+        for(int i=0 ; i<n ; i++){
+            if(!dq.isEmpty() && dq.peekFirst()<=i-k) dq.removeFirst();
+            while(!dq.isEmpty() && nums[dq.peekLast()]<=nums[i]) dq.removeLast();
+            dq.addLast(i);
+            if(i>=k-1) lst.add(nums[dq.peekFirst()]);
+        }
+        int[] arr = lst.stream().mapToInt(i -> i).toArray();
+        return arr;
+    }
+}
