@@ -1,0 +1,62 @@
+// Leetcode-1004... Maximum consecutive ones III
+Brute force approach:
+1. Make the subarrays until the number of zeros become 2 max
+2. if zeros are greater than k then exit
+3. Return the maximum of len and maxlen
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int maxlen = 0;
+        for(int i=0 ; i<nums.length ; i++){
+            int zeros = 0;
+            for(int j=i ; j<nums.length ; j++){
+                if(nums[j]==0) zeros++;
+                if(zeros<=k){
+                    int len = j-i+1;
+                    maxlen = Math.max(maxlen,len);
+                }
+                else break;
+            }
+        }
+        return maxlen;
+    }
+}
+
+Better approach:
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int maxlen = 0, l=0, r=0, zeros=0;
+        while(r<nums.length){
+            if(nums[r]==0) zeros++;
+            while(zeros>k){
+                if(nums[l]==0) zeros--;
+                l++;
+            }
+            if(zeros<=k){
+                int len = r-l+1;
+                maxlen = Math.max(maxlen,len);
+            }
+            r++;
+        }
+        return maxlen;
+    }
+}
+
+Optimal approach:
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int maxlen = 0, l=0, r=0, zeros=0;
+        while(r<nums.length){
+            if(nums[r]==0) zeros++;
+            if(zeros>k){
+                if(nums[l]==0) zeros--;
+                l++;
+            }
+            if(zeros<=k){
+                int len = r-l+1;
+                maxlen = Math.max(maxlen,len);
+            }
+            r++;
+        }
+        return maxlen;
+    }
+}
