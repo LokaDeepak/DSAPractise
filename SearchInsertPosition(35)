@@ -1,4 +1,4 @@
-// Leetcode-35... Binary search
+// Leetcode-35... Search Insert position
 class Solution {
     public int searchInsert(int[] nums, int target) {
         int n=nums.length;
